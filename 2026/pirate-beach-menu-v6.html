@@ -324,7 +324,7 @@ html,body{
   position:relative;z-index:3;
   width:100%;margin:0 auto;
   max-width:calc(1000px * var(--k));
-  max-height:calc(1420px * var(--k));
+  max-height:calc(1560px * var(--k));
   flex:1 1 auto;
   display:flex;flex-direction:column;justify-content:space-between;
 }
@@ -356,6 +356,12 @@ html,body{
 }
 
 /* ---------- sections ---------- */
+/* Minimum breathing room above each section. #content uses
+   space-between, which adds more when the board has slack, but
+   goes to zero once the solve is height-limited (e.g. a fourth
+   drink in a section). This keeps the headers off the drink above. */
+.section{margin-top:calc(52px * var(--k))}
+
 .sect-head{
   display:flex;align-items:center;justify-content:center;
   gap:calc(22px * var(--k));
@@ -382,6 +388,12 @@ html,body{
   color:#22303B;
 }
 .d-body{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:600;
+  line-height:1.24;margin-top:calc(6px * var(--k));
+  color:var(--text-soft);
+}
+.d-list{
   font-family:'Cormorant Garamond',Georgia,serif;
   font-style:italic;font-weight:600;
   line-height:1.24;margin-top:calc(6px * var(--k));
@@ -664,15 +676,15 @@ html,body{
 
       <div class="drink">
         <div class="d-name">Grog</div>
-        <div class="d-body">Choose: Lower Decks, Upper Decks, or Stormy</div>
+        <div class="d-body">drink your rum ration! choose: basic, fancy, or stormy</div>
       </div>
       <div class="drink">
         <div class="d-name">Mai Tai</div>
-        <div class="d-body">spiced rum, ginger beer, bitters</div>
+        <div class="d-body">151, rum, curacao, orgeat, lime, grenadine</div>
       </div>
       <div class="drink">
-        <div class="d-name">Barrel of Grog</div>
-        <div class="d-body">white rum, brown sugar, lemon, nutmeg</div>
+        <div class="d-name">Fall Sling</div>
+        <div class="d-body">gin, cherry brandy, benedictine, lemon, simple, bitters, soda</div>
       </div>
     </section>
 
@@ -685,16 +697,20 @@ html,body{
       </div>
 
       <div class="drink">
-        <div class="d-name">Frozen Riptide</div>
-        <div class="d-body">blue cura&ccedil;ao, coconut rum, pineapple</div>
+        <div class="d-name">Mojito</div>
+        <div class="d-body">rum, sugar, lime, mint, soda</div>
       </div>
       <div class="drink">
-        <div class="d-name">Cabana Cooler</div>
-        <div class="d-body">vodka, watermelon, mint, soda</div>
+        <div class="d-name">Hard and Dirty</div>
+        <div class="d-body">liquor, vodka, cream (non-dairy), soda</div>
       </div>
       <div class="drink">
-        <div class="d-name">Castaway Colada</div>
-        <div class="d-body">coconut cream, pineapple, aged rum</div>
+        <div class="d-name">Pea in the Pool</div>
+        <div class="d-body">butterfly pea flower vodka and lemonade</div>
+      </div>
+      <div class="drink">
+        <div class="d-name">Highball</div>
+        <div class="d-body">rum, vodka, tequilla, OR whiskey, plus soda</div>
       </div>
     </section>
 
@@ -702,13 +718,13 @@ html,body{
     <section class="section s-beer">
       <div class="sect-head">
         <span class="line"></span><span class="mark"></span>
-        <span class="sect-name">Beer</span>
+        <span class="sect-name">Draft Beer</span>
         <span class="mark"></span><span class="line"></span>
       </div>
 
       <div class="beers">
         <div class="drink">
-          <div class="d-name">Anchorline Lager</div>
+          <div class="d-name">Anchorline Steamer</div>
           <div class="d-body">blue cooler</div>
         </div>
         <div class="divider"></div>
