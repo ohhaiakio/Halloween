@@ -109,7 +109,7 @@ html,body{
 }
 
 .cloud{
-  position:absolute;border-radius:40px;filter:blur(.36vh);
+  position:absolute;border-radius:40px;
   background:linear-gradient(90deg, rgba(255,190,140,0), rgba(255,196,150,.62), rgba(255,170,130,.30), rgba(255,190,140,0));
 }
 .cloud.c1{top:3.02vh; width:39.8vw;height:1.04vh;animation:drift 138s linear infinite}
@@ -147,8 +147,8 @@ html,body{
   animation:glint 4.2s ease-in-out infinite;
 }
 @keyframes glint{
-  0%,100%{opacity:.85;background-position-y:0}
-  50%{opacity:.55;background-position-y:.21vh}
+  0%,100%{opacity:.85}
+  50%{opacity:.55}
 }
 
 .wave{position:absolute;left:0;width:200%;height:var(--sea-h);will-change:transform}
@@ -165,8 +165,7 @@ html,body{
 /* --- shoreline + sand --- */
 .shore{
   position:absolute;left:0;top:20vh;width:100%;height:1.667vh;
-  background:linear-gradient(180deg, rgba(255,232,190,.9), rgba(255,210,160,.15) 60%, rgba(0,0,0,0));
-  filter:blur(.104vh);
+  background:linear-gradient(180deg, rgba(255,232,190,.75), rgba(255,210,160,.12) 50%, rgba(0,0,0,0));
   animation:washUp 9s ease-in-out infinite;
 }
 @keyframes washUp{
@@ -746,13 +745,13 @@ html,body{
 
       <div class="beers">
         <div class="drink" data-id="beer-anchorline-steamer">
-          <div class="d-name">Anchorline Steamer</div>
-          <div class="d-body">blue cooler</div>
+          <div class="d-name">Porter</div>
+          <div class="d-body">Cacao Porter</div>
         </div>
         <div class="divider"></div>
         <div class="drink" data-id="beer-salt-rail-ipa">
-          <div class="d-name">Salt Rail IPA</div>
-          <div class="d-body">red cooler</div>
+          <div class="d-name">Bitter</div>
+          <div class="d-body">Not all that bitter English pub ale</div>
         </div>
       </div>
     </section>
