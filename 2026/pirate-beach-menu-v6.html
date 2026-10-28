@@ -347,6 +347,14 @@ html,body{
   color:#2B2118;
   text-shadow:0 calc(2px * var(--k)) 0 rgba(255,248,225,.55);
 }
+.masthead .note{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;font-weight:600;
+  font-size:calc(27px * var(--k));
+  line-height:1.3;
+  margin-top:calc(14px * var(--k));
+  color:var(--text-soft);
+}
 .masthead .hr{margin-top:calc(20px * var(--k))}
 
 .hr{
@@ -398,6 +406,19 @@ html,body{
   font-style:italic;font-weight:600;
   line-height:1.24;margin-top:calc(6px * var(--k));
   color:var(--text-soft);
+}
+
+/* tap a drink to cross it off when it runs out; state is remembered
+   per-browser via localStorage, see the script at the bottom */
+.drink[data-id]{
+  cursor:pointer;touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+}
+.drink.sold-out{opacity:.4}
+.drink.sold-out .d-name{
+  text-decoration:line-through;
+  text-decoration-thickness:calc(3px * var(--k));
+  text-decoration-color:currentColor;
 }
 
 .s-pirate{color:var(--pirate)}
@@ -661,8 +682,9 @@ html,body{
   <div id="content">
 
     <header class="masthead">
-      <div class="eyebrow">DRINKS FOR THE CREW</div>
+      <div class="eyebrow">THE COCK AND PLUCKER</div>
       <h1 class="title">Pirate Pool Party</h1>
+      <div class="note">Full Bar Available &nbsp;&sim;&nbsp; Rum can be substituted for other spirits in most drinks</div>
       <div class="hr"></div>
     </header>
 
@@ -674,17 +696,17 @@ html,body{
         <span class="mark"></span><span class="line"></span>
       </div>
 
-      <div class="drink">
+      <div class="drink" data-id="pirate-grog">
         <div class="d-name">Grog</div>
         <div class="d-body">drink your rum ration! choose: basic, fancy, or stormy</div>
       </div>
-      <div class="drink">
+      <div class="drink" data-id="pirate-mai-tai">
         <div class="d-name">Mai Tai</div>
         <div class="d-body">151, rum, curacao, orgeat, lime, grenadine</div>
       </div>
-      <div class="drink">
-        <div class="d-name">Fall Sling</div>
-        <div class="d-body">gin, cherry brandy, benedictine, lemon, simple, bitters, soda</div>
+      <div class="drink" data-id="pirate-jolly-java">
+        <div class="d-name">Jolly Java</div>
+        <div class="d-body">espresso, rum, orgeat, falernum, bitters</div>
       </div>
     </section>
 
@@ -696,19 +718,19 @@ html,body{
         <span class="mark"></span><span class="line"></span>
       </div>
 
-      <div class="drink">
+      <div class="drink" data-id="pool-mojito">
         <div class="d-name">Mojito</div>
         <div class="d-body">rum, sugar, lime, mint, soda</div>
       </div>
-      <div class="drink">
-        <div class="d-name">Hard and Dirty</div>
-        <div class="d-body">liquor, vodka, cream (non-dairy), soda</div>
+      <div class="drink" data-id="pool-mommys-medicine">
+        <div class="d-name">Mommy's Medicine</div>
+        <div class="d-body">rum, pineapple, orange, coconut cream, nutmeg</div>
       </div>
-      <div class="drink">
+      <div class="drink" data-id="pool-pea-in-the-pool">
         <div class="d-name">Pea in the Pool</div>
         <div class="d-body">butterfly pea flower vodka and lemonade</div>
       </div>
-      <div class="drink">
+      <div class="drink" data-id="pool-highball">
         <div class="d-name">Highball</div>
         <div class="d-body">rum, vodka, tequilla, OR whiskey, plus soda</div>
       </div>
@@ -723,12 +745,12 @@ html,body{
       </div>
 
       <div class="beers">
-        <div class="drink">
+        <div class="drink" data-id="beer-anchorline-steamer">
           <div class="d-name">Anchorline Steamer</div>
           <div class="d-body">blue cooler</div>
         </div>
         <div class="divider"></div>
-        <div class="drink">
+        <div class="drink" data-id="beer-salt-rail-ipa">
           <div class="d-name">Salt Rail IPA</div>
           <div class="d-body">red cooler</div>
         </div>
@@ -784,6 +806,39 @@ html,body{
   window.addEventListener('resize', solve);
   window.addEventListener('orientationchange', solve);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(solve);
+})();
+
+/* ============================================================
+   Tap a drink to cross it off when the bar runs out of something.
+   State is per-browser (localStorage), so it survives a reload but
+   not a switch to a different machine or a cleared cache.
+   ============================================================ */
+(function(){
+  var STORAGE_KEY = 'piratebeach.soldout.v1';
+
+  function load(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch (e) { return {}; }
+  }
+  function save(state){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) {}
+  }
+
+  var state = load();
+  var drinks = document.querySelectorAll('.drink[data-id]');
+
+  drinks.forEach(function(drink){
+    var id = drink.dataset.id;
+    drink.classList.toggle('sold-out', !!state[id]);
+
+    drink.addEventListener('click', function(){
+      var next = !drink.classList.contains('sold-out');
+      drink.classList.toggle('sold-out', next);
+      state[id] = next;
+      save(state);
+    });
+  });
 })();
 </script>
 </body>
